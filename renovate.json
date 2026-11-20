@@ -1,0 +1,36 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "timezone": "Asia/Tokyo",
+  "schedule": ["* 0-5 * * 1"],
+  "minimumReleaseAge": "7 days",
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "minimumReleaseAge": null,
+    "labels": ["security"]
+  },
+  "automerge": false,
+  "automergeType": "pr",
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "CI で使う gh-actions-lock（GitHub CLI 拡張）のバージョン",
+      "managerFilePatterns": ["/^\\.github/workflows/[^/]+\\.ya?ml$/"],
+      "matchStrings": ["GH_ACTIONS_LOCK_VERSION:\\s*(?<currentValue>v\\d+\\.\\d+\\.\\d+)"],
+      "depNameTemplate": "github/gh-actions-lock",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    }
+ ]
+  // プロジェクト固有のルール
+  // "packageRules": [
+  //   {
+  //     "matchManagers": ["dockerfile"],
+  //     "matchUpdateTypes": ["minor", "patch"],
+  //     "automerge": true
+  //   }
+  // ]
+}
